@@ -170,7 +170,7 @@ $ kubectl -n eda logs -f deployment/eda-server-operator-controller-manager
 ...
 ----- Ansible Task Status Event StdOut (eda.ansible.com/v1alpha1, Kind=EDA, eda/eda) -----
 PLAY RECAP *********************************************************************
-localhost                  : ok=58   changed=0    unreachable=0    failed=0    skipped=20   rescued=0    ignored=0
+localhost                  : ok=75   changed=0    unreachable=0    failed=0    skipped=43   rescued=0    ignored=0
 ```
 
 The required objects should now have been deployed next to EDA Operator in the `eda` namespace.
@@ -179,31 +179,28 @@ The required objects should now have been deployed next to EDA Operator in the `
 ```bash
 $ kubectl -n eda get pod,svc,ingress
 
-NAME                                                          READY   STATUS    RESTARTS   AGE
-pod/eda-activation-worker-7d798c6d87-zqn7r                    1/1     Running   0          6m
-pod/eda-activation-worker-7d798c6d87-zsxwp                    1/1     Running   0          6m
-pod/eda-api-f76ffcc8f-hzrm7                                   3/3     Running   0          6m
-pod/eda-default-worker-c777647c-4459h                         1/1     Running   0          6m
-pod/eda-default-worker-c777647c-t7t4j                         1/1     Running   0          6m
-pod/eda-event-stream-567c8b69f5-p9pvf                         2/2     Running   0          6m
-pod/eda-postgres-15-0                                         1/1     Running   0          6m
-pod/eda-redis-747596546f-svl6q                                1/1     Running   0          6m
-pod/eda-scheduler-86b69ccfb8-j2kzn                            1/1     Running   0          6m
-pod/eda-scheduler-86b69ccfb8-wp2gw                            1/1     Running   0          6m
-pod/eda-server-operator-controller-manager-575c46bbff-d8dj6   2/2     Running   0          12m
-pod/eda-ui-665c8997b-6cwz5                                    1/1     Running   0          6m
+NAME                                                         READY   STATUS    RESTARTS   AGE
+pod/eda-server-operator-controller-manager-b7f64bc9b-f6c45   2/2     Running   0          6m49s
+pod/eda-redis-747596546f-rj8mx                               1/1     Running   0          4m3s
+pod/eda-postgres-15-0                                        1/1     Running   0          3m52s
+pod/eda-ui-78d6d4c9d7-fndz4                                  1/1     Running   0          2m54s
+pod/eda-activation-worker-5db4894b46-tgk9g                   1/1     Running   0          2m49s
+pod/eda-default-worker-7bbfd84567-dnbvr                      1/1     Running   0          2m51s
+pod/eda-scheduler-588d78b9bd-fpfpw                           1/1     Running   0          2m47s
+pod/eda-api-888c5d77c-95r2z                                  2/2     Running   0          2m57s
+pod/eda-event-stream-567c8b69f5-p9pvf                        2/2     Running   0          2m48s
 
-NAME                                                             TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
-service/eda-api                                                  ClusterIP   10.106.29.154    <none>        8000/TCP       5m
-service/eda-daphne                                               ClusterIP   10.109.140.137   <none>        8001/TCP       5m
-service/eda-event-stream                                         ClusterIP   10.96.154.121    <none>        8000/TCP       5m
-service/eda-postgres-15                                          ClusterIP   None             <none>        5432/TCP       6m
-service/eda-redis-svc                                            ClusterIP   10.97.241.214    <none>        6379/TCP       6m
-service/eda-server-operator-controller-manager-metrics-service   ClusterIP   10.107.55.104    <none>        8443/TCP       11m
-service/eda-ui                                                   ClusterIP   10.108.165.198   <none>        80/TCP         4m
+NAME                                                             TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/eda-server-operator-controller-manager-metrics-service   ClusterIP   10.43.181.52    <none>        8443/TCP   6m49s
+service/eda-redis-svc                                            ClusterIP   10.43.141.149   <none>        6379/TCP   4m4s
+service/eda-postgres-15                                          ClusterIP   None            <none>        5432/TCP   3m56s
+service/eda-api                                                  ClusterIP   10.43.209.69    <none>        8000/TCP   2m58s
+service/eda-event-stream                                         ClusterIP   10.96.154.121   <none>        8000/TCP   2m56s
+service/eda-daphne                                               ClusterIP   10.43.182.145   <none>        8001/TCP   2m58s
+service/eda-ui                                                   ClusterIP   10.43.49.181    <none>        80/TCP     2m55s
 
 NAME                                    CLASS     HOSTS             ADDRESS         PORTS     AGE
-ingress.networking.k8s.io/eda-ingress   nginx     eda.example.com   192.168.10.25   80, 443   6m6s
+ingress.networking.k8s.io/eda-ingress   nginx     eda.example.com   192.168.10.25   80, 443   2m52s
 ```
 
 Now your EDA is available as you specified:

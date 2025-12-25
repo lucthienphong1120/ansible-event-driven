@@ -41,5 +41,18 @@ spec:
   
   db_fields_encryption_secret: eda-db-encryption-secret
 
+  api:
+    replicas: 1
+  default_worker:
+    replicas: 1 # default 2
+  activation_worker:
+    replicas: 1 # default 2
+  scheduler:
+    replicas: 1 # default 2
+  event_stream:
+    replicas: 1
+  ui:
+    replicas: 1
+
   # Uncomment to reveal "censored" logs
   #no_log: false
