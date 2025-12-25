@@ -58,14 +58,14 @@ Fill the form as follows, then click `Create decision environment` button on the
 
 | Key | Value |
 | - | - |
-| Name | `Minimal DE` |
-| Image | `quay.io/ansible/ansible-rulebook:v1.0.6` |
+| Name | `DE Latest` |
+| Image | `quay.io/ansible/ansible-rulebook:latest` |
 
 #### Add Project on EDA Server
 
-To run Ansible Rulebook by EDA Server, the repository on SCM that contains Rulebooks have to be registered as Project on EDA Server.
+To run Ansible Rulebook by EDA Server, the repository on SCM `must` contains Rulebooks have to be registered as Project on EDA Server.
 
-This repository contains some example Rulebooks under [rulebooks](./) directory, so we can register this repository as Project.
+This repository contains some example `rulebooks` directory, so we can register this repository as Project.
 
 Open `Projects` on Web UI for EDA Server, then click `Create project` button.
 
@@ -74,7 +74,7 @@ Fill the form as follows, then click `Create project` button on the bottom of th
 | Key | Value |
 | - | - |
 | Name | `Demo Project` |
-| SCM URL | `https://github.com/kurokobo/awx-on-k3s.git` |
+| SCM URL | `https://github.com/lucthienphong1120/ansible-event-drivent.git` |
 
 Refresh the page and wait for the `Status` for the project to be `Completed`.
 
