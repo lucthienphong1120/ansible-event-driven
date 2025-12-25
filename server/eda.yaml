@@ -18,7 +18,14 @@ spec:
   service_type: NodePort
   nodeport_port: 31000
 
+  # service_type: LoadBalancer
+  # loadbalancer_ip: '192.168.10.25'
+  # loadbalancer_protocol: https
+  # loadbalancer_port: 443
+  # loadbalancer_class: service.k8s.aws/nlb
+
   # ingress_type: ingress
+  # ingress_class_name: nginx
   # ingress_tls_secret: eda-secret-tls
   # hostname: eda.example.com
 
