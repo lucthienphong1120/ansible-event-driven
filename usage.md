@@ -4,13 +4,13 @@ Here is a demo of configuring a webhook on the EDA Server side, and triggering a
 
 In this demo, following example Rulebook is used. Review the Rulebook.
 
-- **Webhook as a source**: [demo_webhook.yaml](demo_webhook.yaml)
+- **Webhook as a source**: [demo_webhook.yaml](./rulebooks/demo_webhook.yaml)
   - The webhook that listening on `0.0.0.0:5000` is defined as a source of the Ruleset.
   - This Ruleset has a rule that if the payload contains `message` field with the body `Hello EDA`, trigger `Demo Job Template` in `Default` organization on AWX.
 
 In addition to the webhook demo, a quick demo to use MQTT as a source is also provided.
 
-- **MQTT as a source**: [demo_mqtt.yaml](demo_mqtt.yaml)
+- **MQTT as a source**: [demo_mqtt.yaml](./rulebooks/demo_mqtt.yaml)
   - As a source of the Ruleset, subscribing MQTT topic on the MQTT broker is defined. Actual connection information for MQTT can be defined by Rulebook Variables.
   - This Ruleset has a rule that if the received data contains `message` field with the body `Hello EDA`, trigger `Demo Job Template` in `Default` organization on AWX.
 
@@ -39,12 +39,14 @@ $ kubectl -n awx exec deployment/awx-task -- awx-manage create_oauth2_token --us
 
 To register the token on EDA Server, in the Web UI for EDA Server, open `User details` page (accessible by user icon at the upper right corner), follow to the `Controller Tokens` tab, and then click `Create controller token` button.
 
-Fill the form as follows, then click `Create controller token` button on the bottom of the page:
+Note: In latest version, the `Create controller token` button was removed, create AWX Token at Credential/Red Hat Ansible Automation Platform
 
 | Key | Value |
 | - | - |
-| Name | `awx.example.com` |
-| Token | `<YOUR_TOKEN>` |
+| Credential type | `Red Hat Ansible Automation Platform` |
+| Name | `AAP Token` |
+| Host | `awx.example.com` |
+| Oauth_token | `<YOUR_TOKEN>` |
 
 #### Add Decision Environment on EDA Server
 
@@ -65,7 +67,7 @@ Fill the form as follows, then click `Create decision environment` button on the
 
 To run Ansible Rulebook by EDA Server, the repository on SCM `must contains rulebooks folder` have to be registered as Project on EDA Server.
 
-This repository contains some example Rulebooks under [rulebooks](./) directory, so we can register this repository as Project.
+This repository contains some example Rulebooks under [rulebooks](./rulebooks) directory, so we can register this repository as Project.
 
 Open `Projects` on Web UI for EDA Server, then click `Create project` button.
 
@@ -88,11 +90,11 @@ Fill the form as follows, then click `Create rulebook activation` button on the 
 
 | Key | Value |
 | - | - |
-| Name | `Trigger Demo Job Template by Webhook` |
+| Name | `Demo Webhook Trigger` |
 | Project | `Demo Project` |
 | Rulebook | `demo_webhook.yaml` |
-| Decision environment | `Minimal DE` |
-| Controller token | `awx.example.com` |
+| Decision environment | `DE Latest` |
+| Credential | `AAP Token` |
 
 Refresh the page and wait for the `Activation status` for the Rulebook to be `Running`.
 
@@ -105,6 +107,8 @@ $ kubectl -n eda get job
 NAME                 COMPLETIONS   DURATION   AGE
 activation-job-1-1   0/1           7m3s       7m3s
 ```
+
+Note: As i know, in docker version of EDA Server, it's deploy an container inside of podman container as webhook, so we can port forward or proxy to trigger the webhook (the newer approach is using `Event Streams`)
 
 The name of the activation job will be changed with each enabling Rulebook Activation, so it is important to know this name for subsequent tasks.
 
