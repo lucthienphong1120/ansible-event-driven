@@ -1,0 +1,41 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: eda
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+secretGenerator:
+  - name: eda-secret-tls
+    type: kubernetes.io/tls
+    files:
+      - tls.crt=cert.pem
+      - tls.key=private.key
+
+  - name: eda-postgres-configuration
+    type: Opaque
+    literals:
+      - host=eda-postgres-15
+      - port=5432
+      - database=eda
+      - username=eda
+      - password=password
+      - type=managed
+
+  - name: eda-admin-password
+    type: Opaque
+    literals:
+      - password=password
+
+  # If you want to specify encryption key for EDA Server, uncomment following lines and change the value.
+  # Refer README for detail about encryption key.
+  # https://github.com/ansible/eda-server-operator/tree/main#database-fields-encryption-configuration
+  - name: eda-db-encryption-secret
+    type: Opaque
+    literals:
+      - secret_key=lXANTdNJcKwqndQBqGjkpaV6Z8wNCoWCaABAeQdj
+
+resources:
+  - pv.yaml
+  - eda.yaml

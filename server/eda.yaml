@@ -1,0 +1,38 @@
+---
+apiVersion: eda.ansible.com/v1alpha1
+kind: EDA
+metadata:
+  name: eda
+spec:
+  # These parameters are designed for use with:
+  # - EDA Operator: main
+  #   https://github.com/ansible/eda-server-operator/blob/main/roles/eda/defaults/main.yml
+
+  image_version: main
+  image_web_version: main
+  image_pull_policy: Always
+
+  admin_user: admin
+  admin_password_secret: eda-admin-password
+
+  service_type: NodePort
+  nodeport_port: 31000
+
+  # ingress_type: ingress
+  # ingress_tls_secret: eda-secret-tls
+  # hostname: eda.example.com
+
+  automation_server_url: http://192.168.140.159:30000
+  automation_server_ssl_verify: no
+
+  database:
+    database_secret: eda-postgres-configuration
+    postgres_storage_class: eda-postgres-volume
+    storage_requirements:
+      requests:
+        storage: 8Gi
+  
+  db_fields_encryption_secret: eda-db-encryption-secret
+
+  # Uncomment to reveal "censored" logs
+  #no_log: false
