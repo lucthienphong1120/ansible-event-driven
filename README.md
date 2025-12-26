@@ -10,9 +10,9 @@ An example implementation of Ansible EDA on Kubernetes using EDA Operator, with 
 
 ## 📸 Screenshot
 
-| Login                            | Home                           | Home                           |
-| -------------------------------- | ------------------------------ | ------------------------------ |
-| ![login](./screenshot/login.png) | ![home](./screenshot/home.png) | ![home](./screenshot/home.png) |
+| Login                            | Overview                               | Home                           |
+| -------------------------------- | -------------------------------------- | ------------------------------ |
+| ![login](./screenshot/login.png) | ![overview](./screenshot/overview.png) | ![home](./screenshot/home.png) |
 
 <!-- omit in toc -->
 ## 📝 Environment
